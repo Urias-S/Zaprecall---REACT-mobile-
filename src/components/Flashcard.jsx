@@ -1,47 +1,64 @@
 import styled from "styled-components"
 import play from '../assets/seta_play.png'
 import virar from '../assets/seta_virar.png'
+import certo from '../assets/icone_certo.png'
+import erro from '../assets/icone_erro.png'
+import quase from '../assets/icone_quase.png'
 import { useState } from "react";
 
 export default function Flashcard({ question, answer, i }) {
-  function playCard () {
+  function playCard() {
     setCardStateList(false);
     setCardStateQuestion(true);
   }
 
-  function showAnswer () {
+  function showAnswer() {
     setCardStateQuestion(false);
     setCardStateAnswer(true);
   }
 
+  function chooseAnswer(choice) {
+    setSelectedAnswer(choice);
+    setCardStateAnswer(false);
+    setCardStateList(true);
+  }
+
+
   const [cardStateList, setCardStateList] = useState(true);
   const [cardStateQuestion, setCardStateQuestion] = useState(false);
   const [cardStateAnswer, setCardStateAnswer] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   return (
-    <QuestionCard $cardStateList = {cardStateList}>
-      <QuestionCardFront $cardStateList = {cardStateList}>
-        <span>Pergunta {i + 1}</span>
-        <IconImg src={play} onClick = {playCard}/>
+    <QuestionCard $cardStateList={cardStateList}>
+      <QuestionCardFront $cardStateList={cardStateList}>
+        <Statement $selectedAnswer = {selectedAnswer}>Pergunta {i + 1}</Statement>
+        <IconImg 
+        src={
+          selectedAnswer === 'Zap!' ? certo : 
+          selectedAnswer === 'Quase lembrei' ? quase :
+          selectedAnswer === 'Não lembrei' ? erro : play
+        }
+        onClick={playCard} />
       </QuestionCardFront>
 
-      <QuestionCardBack $cardStateQuestion = {cardStateQuestion}>
+      <QuestionCardBack $cardStateQuestion={cardStateQuestion}>
         <span>{question}</span>
-        <IconImg src={virar} $virar={true} onClick = {showAnswer}/>
+        <IconImg src={virar} $virar={true} onClick={showAnswer} />
       </QuestionCardBack>
 
-      <QuestionCardAnswer $cardStateAnswer = {cardStateAnswer}>
+      <QuestionCardAnswer $cardStateAnswer={cardStateAnswer}>
         <span>{answer}</span>
         <Buttons>
-          <ButtonDont>
+          <ButtonDont onClick={() => chooseAnswer('Não lembrei')}>
             <span>Não lembrei</span>
           </ButtonDont>
 
-          <ButtonAlmost>
+          <ButtonAlmost onClick={() => chooseAnswer('Quase lembrei')}>
             <span>Quase não lembrei</span>
           </ButtonAlmost>
 
-          <ButtonZap>
+          <ButtonZap onClick={() => chooseAnswer('Zap!')}>
             <span>Zap!</span>
           </ButtonZap>
 
@@ -51,6 +68,16 @@ export default function Flashcard({ question, answer, i }) {
     </QuestionCard>
   )
 }
+
+const Statement = styled.span`
+  color: ${props => 
+    props.$selectedAnswer === 'Zap!' ? 'rgba(47, 190, 52, 1)' :
+    props.$selectedAnswer === 'Quase lembrei' ? 'rgba(255, 146, 46, 1)' :
+    props.$selectedAnswer === 'Não lembrei' ? 'rgba(255, 48, 48, 1)' : 'black'
+    };
+  text-decoration: ${props => props.$selectedAnswer ? 'line-through' : 'none'};
+`;
+
 const ButtonDont = styled.button`
   height: 40px;
   width: 85px;
