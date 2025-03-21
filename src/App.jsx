@@ -3,14 +3,16 @@ import Cards from "./components/Cards";
 import Progress from "./components/Progress";
 import styled from "styled-components";
 import GlobalStyle from "./styles/Reset";
+import { useState } from "react";
 
 export default function App({cardscontent}) {
+  const [concluedCards, setConcluedCards] = useState(0);
   return (
     <Mobile>
       <GlobalStyle />
       <Logo />
-      <Cards cardscontent = {cardscontent}/>
-      <Progress cardscontent = {cardscontent}/>
+      <Cards cardscontent = {cardscontent} concluedCards = {concluedCards}/>
+      <Progress cardscontent = {cardscontent} concluedCards = {concluedCards}/>
     </Mobile>
   );
 }

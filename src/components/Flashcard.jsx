@@ -1,21 +1,36 @@
 import styled from "styled-components"
 import play from '../assets/seta_play.png'
 import virar from '../assets/seta_virar.png'
+import { useState } from "react";
 
 export default function Flashcard({ question, answer, i }) {
+  function playCard () {
+    setCardStateList(false);
+    setCardStateQuestion(true);
+  }
+
+  function showAnswer () {
+    setCardStateQuestion(false);
+    setCardStateAnswer(true);
+  }
+
+  const [cardStateList, setCardStateList] = useState(true);
+  const [cardStateQuestion, setCardStateQuestion] = useState(false);
+  const [cardStateAnswer, setCardStateAnswer] = useState(false);
+
   return (
     <QuestionCard>
-      <QuestionCardFront >
+      <QuestionCardFront $cardStateList = {cardStateList}>
         <span>Pergunta {i + 1}</span>
-        <IconImg src={play} />
+        <IconImg src={play} onClick = {playCard}/>
       </QuestionCardFront>
 
-      <QuestionCardBack>
+      <QuestionCardBack $cardStateQuestion = {cardStateQuestion}>
         <span>{question}</span>
-        <IconImg src={virar} virar={true} />
+        <IconImg src={virar} $virar={true} onClick = {showAnswer}/>
       </QuestionCardBack>
 
-      <QuestionCardAnswer>
+      <QuestionCardAnswer $cardStateAnswer = {cardStateAnswer}>
         <span>{answer}</span>
         <Buttons>
           <ButtonDont>
@@ -69,7 +84,7 @@ const Buttons = styled.div`
 const IconImg = styled.img`
   width: 20px;
   height: 20px;
-  align-self: ${props => props.virar ? 'flex-end' : ''};
+  align-self: ${props => props.$virar ? 'flex-end' : ''};
 `;
 const QuestionCard = styled.div`
   position: relative;
@@ -94,7 +109,7 @@ const QuestionCardFront = styled.div`
   border-radius: 5px;
   font-family: "Recursive", sans-serif;
   font-weight: 700;
-  transform: rotateY(180deg);
+  transform: ${props => props.$cardStateList ? 'rotateY(0)' : 'rotateY(180deg)'};
 `;
 const QuestionCardBack = styled.div`
   position: absolute;
@@ -108,7 +123,7 @@ const QuestionCardBack = styled.div`
   justify-content: space-between;
   transition: transform 0.6s;
   backface-visibility: hidden;
-  transform: rotateY(-180deg);
+  transform: ${props => props.$cardStateQuestion ? 'rotateY(0)' : 'rotateY(-180deg)'};
   background-color: rgba(255, 255, 212, 1);
   border-radius: 5px;
   font-family: "Recursive", sans-serif;
@@ -130,7 +145,7 @@ const QuestionCardAnswer = styled.div`
   justify-content: space-between;
   transition: transform 0.6s;
   backface-visibility: hidden;
-  transform: rotateY(0);
+  transform: ${props => props.$cardStateAnswer ? 'rotateY(0)' : 'rotateY(270deg)'};
   background-color: rgba(255, 255, 212, 1);
   border-radius: 5px;
   font-family: "Recursive", sans-serif;
