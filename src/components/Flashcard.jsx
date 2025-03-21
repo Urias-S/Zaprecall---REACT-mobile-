@@ -19,7 +19,7 @@ export default function Flashcard({ question, answer, i }) {
   const [cardStateAnswer, setCardStateAnswer] = useState(false);
 
   return (
-    <QuestionCard>
+    <QuestionCard $cardStateList = {cardStateList}>
       <QuestionCardFront $cardStateList = {cardStateList}>
         <span>Pergunta {i + 1}</span>
         <IconImg src={play} onClick = {playCard}/>
@@ -89,7 +89,7 @@ const IconImg = styled.img`
 const QuestionCard = styled.div`
   position: relative;
   width: 300px;
-  height: 130px;
+  height: ${props => props.$cardStateList ? '60px' : '130px'};
   transform-style: preserve-3d;
   perspective: 1000px;
 `;
