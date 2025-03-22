@@ -1,10 +1,18 @@
 import Flashcard from "./Flashcard"
 import styled from "styled-components";
-export default function Cards ({cardscontent, concluedCards}) {
+export default function Cards ({cardscontent, concluedCards, setConcluedCards}) {
   return (
     <CardsTable>
       {cardscontent.map((questioncard, index) => {
-        return (<Flashcard question = {questioncard.question} answer = {questioncard.answer} i = {index} key = {index}/>);
+        return (
+        <Flashcard 
+        question = {questioncard.question}
+        answer = {questioncard.answer}
+        i = {index}
+        concluedCards = {concluedCards}
+        setConcluedCards = {setConcluedCards}
+        key = {index}/>
+      );
       })}
     </CardsTable>
   )

@@ -6,10 +6,13 @@ import erro from '../assets/icone_erro.png'
 import quase from '../assets/icone_quase.png'
 import { useState } from "react";
 
-export default function Flashcard({ question, answer, i }) {
+export default function Flashcard({ question, answer, i, concluedCards, setConcluedCards }) {
   function playCard() {
-    setCardStateList(false);
-    setCardStateQuestion(true);
+    if (!selectedAnswer) {
+      setCardStateList(false);
+      setCardStateQuestion(true);
+    }
+    return;
   }
 
   function showAnswer() {
@@ -21,6 +24,7 @@ export default function Flashcard({ question, answer, i }) {
     setSelectedAnswer(choice);
     setCardStateAnswer(false);
     setCardStateList(true);
+    setConcluedCards(concluedCards + 1);
   }
 
 
@@ -32,14 +36,14 @@ export default function Flashcard({ question, answer, i }) {
   return (
     <QuestionCard $cardStateList={cardStateList}>
       <QuestionCardFront $cardStateList={cardStateList}>
-        <Statement $selectedAnswer = {selectedAnswer}>Pergunta {i + 1}</Statement>
-        <IconImg 
-        src={
-          selectedAnswer === 'Zap!' ? certo : 
-          selectedAnswer === 'Quase lembrei' ? quase :
-          selectedAnswer === 'Não lembrei' ? erro : play
-        }
-        onClick={playCard} />
+        <Statement $selectedAnswer={selectedAnswer}>Pergunta {i + 1}</Statement>
+        <IconImg
+          src={
+            selectedAnswer === 'Zap!' ? certo :
+              selectedAnswer === 'Quase lembrei' ? quase :
+                selectedAnswer === 'Não lembrei' ? erro : play
+          }
+          onClick={playCard} />
       </QuestionCardFront>
 
       <QuestionCardBack $cardStateQuestion={cardStateQuestion}>
@@ -70,11 +74,11 @@ export default function Flashcard({ question, answer, i }) {
 }
 
 const Statement = styled.span`
-  color: ${props => 
+  color: ${props =>
     props.$selectedAnswer === 'Zap!' ? 'rgba(47, 190, 52, 1)' :
-    props.$selectedAnswer === 'Quase lembrei' ? 'rgba(255, 146, 46, 1)' :
-    props.$selectedAnswer === 'Não lembrei' ? 'rgba(255, 48, 48, 1)' : 'black'
-    };
+      props.$selectedAnswer === 'Quase lembrei' ? 'rgba(255, 146, 46, 1)' :
+        props.$selectedAnswer === 'Não lembrei' ? 'rgba(255, 48, 48, 1)' : 'black'
+  };
   text-decoration: ${props => props.$selectedAnswer ? 'line-through' : 'none'};
 `;
 

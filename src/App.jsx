@@ -11,8 +11,8 @@ export default function App({cardscontent}) {
     <Mobile>
       <GlobalStyle />
       <Logo />
-      <Cards cardscontent = {cardscontent} concluedCards = {concluedCards}/>
-      <Progress cardscontent = {cardscontent} concluedCards = {concluedCards}/>
+      <Cards cardscontent = {cardscontent} concluedCards = {concluedCards} setConcluedCards = {setConcluedCards}/>
+      <Progress cardscontent = {cardscontent} concluedCards = {concluedCards} setConcluedCards = {setConcluedCards}/>
     </Mobile>
   );
 }
