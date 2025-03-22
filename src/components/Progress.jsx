@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export default function Progress () {
+export default function Progress ({concluedCards, cardscontent}) {
   return (
     <ProgressBar>
-      <Finished>CONCLUÍDOS</Finished>
+      <Finished> {concluedCards}/{cardscontent.length} CONCLUÍDOS</Finished>
     </ProgressBar>
   )
 }

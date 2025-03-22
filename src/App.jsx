@@ -12,7 +12,7 @@ export default function App({cardscontent}) {
       <GlobalStyle />
       <Logo />
       <Cards cardscontent = {cardscontent} concluedCards = {concluedCards} setConcluedCards = {setConcluedCards}/>
-      <Progress cardscontent = {cardscontent} concluedCards = {concluedCards} setConcluedCards = {setConcluedCards}/>
+      <Progress cardscontent = {cardscontent} concluedCards = {concluedCards}/>
     </Mobile>
   );
 }
