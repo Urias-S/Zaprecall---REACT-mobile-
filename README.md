@@ -4,7 +4,7 @@ An interactive flashcard game to test your knowledge! 💡
 
 ## 📸 Demo
 
-🔗 [Live Demo](https://your-project.vercel.app)
+🔗 [Live Demo](https://zaprecall-react-mobile.vercel.app/)
 
 ![zaprecall](https://github.com/user-attachments/assets/931612b3-e661-4925-bd30-a87af871b26e)
 
@@ -40,4 +40,4 @@ An interactive flashcard game to test your knowledge! 💡
 ## 🚀 Deployment
   This project is hosted on Vercel. Click the link below to play:
   
-  🔗 [Zaprecall - Play now](https://your-project.vercel.app)
+  🔗 [Zaprecall - Play now](https://zaprecall-react-mobile.vercel.app/)
